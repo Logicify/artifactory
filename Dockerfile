@@ -4,13 +4,13 @@ MAINTAINER Dmitry Berezovsky <dmitry.berezovsky@logicify.com>
 ENV ARTIFACTORY_HOME /srv/artifactory
 ENV ARTIFACTORY_VERSION 3.9.0
 
-USER app
+ADD run-artifactory.sh /usr/bin/
+RUN chmod +x /usr/bin/run-artifactory.sh
 WORKDIR ${ARTIFACTORY_HOME}
 
-ADD run-artifactory.sh /usr/bin/
+USER app
 
 RUN cd /srv \
-  && chmod +x /usr/bin/run-artifactory.sh \
   && wget https://bintray.com/artifact/download/jfrog/artifactory/artifactory-${ARTIFACTORY_VERSION}.zip \
   && unzip artifactory-${ARTIFACTORY_VERSION}.zip \
   && rm -f artifactory-${ARTIFACTORY_VERSION}.zip \
